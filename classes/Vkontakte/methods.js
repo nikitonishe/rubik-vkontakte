@@ -16,7 +16,7 @@ module.exports = [
   { kubikName: 'account.setOnline', apiName: 'account.setOnline' },
   { kubikName: 'account.setPushSettings', apiName: 'account.setPushSettings' },
   { kubikName: 'account.setSilenceMode', apiName: 'account.setSilenceMode' },
-  { kubikName: 'account.unban', apiName: 'account.unban' }, 
+  { kubikName: 'account.unban', apiName: 'account.unban' },
   { kubikName: 'account.unregisterDevice', apiName: 'account.unregisterDevice' },
 
   { kubikName: 'appWidgets.getAppImageUploadServer', apiName: 'appWidgets.getAppImageUploadServer' },
@@ -259,7 +259,7 @@ module.exports = [
   { kubikName: 'messages.restore', apiName: 'messages.restore' },
   { kubikName: 'messages.search', apiName: 'messages.search' },
   { kubikName: 'messages.searchConversations', apiName: 'messages.searchConversations' },
-  { kubikName: 'messages.send', apiName: 'messages.send' },
+  { kubikName: 'messages.send', apiName: 'messages.send', patch: (params) => { params.random_id = +new Date() } },
   { kubikName: 'messages.sendMessageEventAnswer', apiName: 'messages.sendMessageEventAnswer' },
   { kubikName: 'messages.setActivity', apiName: 'messages.setActivity' },
   { kubikName: 'messages.setChatPhoto', apiName: 'messages.setChatPhoto' },

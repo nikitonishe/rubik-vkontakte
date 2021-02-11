@@ -82,10 +82,11 @@ class Vkontakte extends Kubik {
    * one/two/three -> this.one.two.three(currency, body, id);
    * @param  {String}  path путь запроса, без ведущего /: one/two/three
    */
-  generateMethod({ kubikName, apiName }) {
+  generateMethod({ kubikName, apiName, patch }) {
     const method = (params, options) => {
       if (!options) options = {};
       const { token, host } = options;
+      if (patch) patch(params, options);
       return this.request({ path: apiName, params, token, host });
     };
     set(this, kubikName, method);
