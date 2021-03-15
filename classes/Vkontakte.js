@@ -94,7 +94,6 @@ class Vkontakte extends Kubik {
    */
   generateMethod({ kubikName, apiName, patch }) {
     const method = ({ params, body, options }) => {
-      console.log(options);
       if (!options) options = {};
       if (!params) params = {};
       const { token, host } = options;
