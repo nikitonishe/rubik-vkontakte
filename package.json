@@ -1,6 +1,6 @@
 {
   "name": "rubik-vkontakte",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vkontakte Bot Api kubik for the Rubik application system",
   "main": "classes/Vkontakte.js",
   "author": "ns@indotech.ru",
