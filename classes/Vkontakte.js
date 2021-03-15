@@ -1,6 +1,7 @@
 const { Kubik } = require('rubik-main');
 const fetch = require('node-fetch');
 const set = require('lodash/set');
+const isObject = require('lodash/isObject');
 const querystring = require('querystring');
 
 const methods = require('./Vkontakte/methods');
@@ -64,9 +65,18 @@ class Vkontakte extends Kubik {
    * @param  {String} [host=this.host] хост API Viber
    * @return {Promise<Object>} ответ от Viber API
    */
-  async request({ path, params, token, host }) {
+  async request({ path, body, params, token, host }) {
     const url = this.getUrl({ path, params, token, host });
-    const request = await fetch(url);
+
+    let method = 'GET',
+    headers = {};
+    if (isObject(body)) {
+      body = querystring.stringify(body);
+      method = 'POST';
+      headers['content-type'] = 'application/x-www-form-urlencoded';
+    }
+
+    const request = await fetch(url, { method, body, headers });
     const result = await request.json();
 
     if (result.error) throw new VkontakteError(result.error.error_msg);
@@ -83,11 +93,13 @@ class Vkontakte extends Kubik {
    * @param  {String}  path путь запроса, без ведущего /: one/two/three
    */
   generateMethod({ kubikName, apiName, patch }) {
-    const method = (params, options) => {
+    const method = ({ params, body, options }) => {
+      console.log(options);
       if (!options) options = {};
+      if (!params) params = {};
       const { token, host } = options;
       if (patch) patch(params, options);
-      return this.request({ path: apiName, params, token, host });
+      return this.request({ path: apiName, body, params, token, host });
     };
     set(this, kubikName, method);
   }
